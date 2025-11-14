@@ -1,223 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vamo comer pastel hoje?</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #ffe3b3, #ffd29c, #fff1d6);
-      background-size: 300% 300%;
-      animation: gradientMove 8s ease infinite;
-      overflow: hidden;
-      position: relative;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vamo comer pastel hoje?</title>
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+<style>
+    body {
+        margin: 0;
+        background-color: #ffddb3;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        overflow-x: hidden;
     }
 
     h1 {
-      color: #d98f34;
-      font-size: 2.6em;
-      margin-bottom: 40px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
-      animation: pulse 2s infinite;
+        margin-top: 100px;
+        font-size: 48px;
+        font-weight: bold;
+        color: #d47a00;
+        text-shadow: 0 0 10px #ffbb66;
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    /* MASCOTE PASTEL */
-    .pastelzinho {
-      width: 120px;
-      margin-bottom: 15px;
-      transition: 0.4s ease;
-    }
-
-    .pular {
-      animation: jump 0.8s ease;
-    }
-
-    @keyframes jump {
-      0% { transform: translateY(0); }
-      40% { transform: translateY(-60px) scale(1.1); }
-      70% { transform: translateY(0) scale(0.95); }
-      100% { transform: translateY(0) scale(1); }
-    }
-
-    /* BOTÕES */
-    .buttons {
-      display: flex;
-      gap: 25px;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    button {
-      font-size: 1.2em;
-      padding: 15px 40px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.25s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    #sim {
-      background-color: #ffb84d;
-      color: white;
-      animation: vibrar 0.4s infinite alternate;
-      transition: transform 0.25s ease;
+    #sim-btn {
+        margin-top: 40px;
+        font-size: 26px;
+        padding: 18px 45px;
+        background-color: #ffb84d;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        animation: vibrar 0.3s infinite alternate;
     }
 
     @keyframes vibrar {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.07); }
+        from { transform: scale(1); }
+        to { transform: scale(1.07); }
     }
 
-    #sim:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 18px #ffe0a6;
+    /* Botão cresce quando passa o mouse */
+    #sim-btn:hover {
+        transform: scale(1.2);
     }
 
-    #nao {
-      background-color: #d9d9d9;
-      color: #666;
-      position: relative;
+    /* Pulo do pastel */
+    @keyframes pulo {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-35px); }
+        100% { transform: translateY(0); }
     }
 
-    #resposta {
-      margin-top: 40px;
-      font-size: 1.8em;
-      color: #d97904;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 1.2s ease-in-out;
+    #mensagem-final {
+        margin-top: 50px;
+        font-size: 32px;
+        color: #d47a00;
+        opacity: 0;
+        transition: 1s;
     }
 
-    /* CORAÇÕES */
-    .heart {
-      position: absolute;
-      color: #ffcf7c;
-      animation: float 6s linear infinite;
-      font-size: 24px;
-      opacity: 0.7;
-    }
-
-    @keyframes float {
-      from { transform: translateY(100vh) scale(0.8); opacity: 0; }
-      20% { opacity: 1; }
-      to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-    }
-
-    /* CONFETES */
+    /* Confetes */
     .confete {
-      position: fixed;
-      font-size: 20px;
-      animation: cair 3.5s linear forwards;
-      pointer-events: none;
+        position: fixed;
+        top: -20px;
+        font-size: 25px;
+        animation: cair 3s linear forwards;
     }
 
     @keyframes cair {
-      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        from { transform: translateY(-50px) rotate(0deg); }
+        to { transform: translateY(120vh) rotate(360deg); }
     }
-  </style>
+</style>
 </head>
+
 <body>
 
-  <!-- pastelzinho NOVO (sem erro) -->
-  <img class="pastelzinho" id="pastelzinho" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png">
+<h1>Vamo comer pastel hoje? 🥟💛</h1>
 
-  <h1>Vamo comer pastel hoje? 🥟💛</h1>
+<button id="sim-btn">Sim 🥰</button>
 
-  <div class="buttons">
-    <button id="sim" onclick="responderSim()">Sim 🥰</button>
-    <button id="nao" onmouseover="fugir()" onclick="fugir()">Não 😭</button>
-  </div>
+<h2 id="mensagem-final">aaaaaaa to feliz 😍🥟</h2>
 
-  <p id="resposta">aaaaaaaa to feliz 😍🥟</p>
+<script>
 
-  <!-- música -->
-  <audio id="musica" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa44df01f1.mp3?filename=cute-117870.mp3"></audio>
+// Função pra soltar confetes
+function soltarConfete() {
+    const confetes = ["🥟", "💛", "✨", "🤩"];
 
-  <script>
-    const resposta = document.getElementById("resposta");
-    const botaoNao = document.getElementById("nao");
-    const musica = document.getElementById("musica");
-    const pastelzinho = document.getElementById("pastelzinho");
+    for (let i = 0; i < 30; i++) {
+        let confete = document.createElement("div");
+        confete.classList.add("confete");
+        confete.innerText = confetes[Math.floor(Math.random() * confetes.length)];
+        confete.style.left = Math.random() * 100 + "vw";
+        confete.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(confete);
 
-    function responderSim() {
-      resposta.style.opacity = 1;
-
-      musica.currentTime = 0;
-      musica.play();
-
-      criarCoracoes();
-      soltarConfete();
-
-      pastelzinho.classList.add("pular");
-      setTimeout(() => pastelzinho.classList.remove("pular"), 900);
-
-      setTimeout(() => {
-        const numero = "+5585991207190";
-        const mensagem = encodeURIComponent("vamos que horas?");
-        const link = `https://wa.me/${numero}?text=${mensagem}`;
-        window.open(link, "_blank");
-      }, 1500);
+        setTimeout(() => confete.remove(), 4000);
     }
+}
 
-    function fugir() {
-      const largura = window.innerWidth - botaoNao.offsetWidth;
-      const altura = window.innerHeight - botaoNao.offsetHeight;
-      const novoX = Math.random() * largura;
-      const novoY = Math.random() * altura;
+const simBtn = document.getElementById("sim-btn");
+const msgFinal = document.getElementById("mensagem-final");
 
-      botaoNao.style.position = "absolute";
-      botaoNao.style.left = `${novoX}px`;
-      botaoNao.style.top = `${novoY}px`;
-    }
+simBtn.addEventListener("click", () => {
 
-    function criarCoracoes() {
-      for (let i = 0; i < 15; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "🥟💛";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = 4 + Math.random() * 3 + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 7000);
-      }
-    }
+    // botão pula
+    simBtn.style.animation = "pulo 0.6s";
 
-    function soltarConfete() {
-      for (let i = 0; i < 25; i++) {
-        const conf = document.createElement("div");
-        conf.classList.add("confete");
+    // solta confetes
+    soltarConfete();
 
-        const emojis = ["🥟","💛","✨","🧡"];
-        conf.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    // aparece mensagem
+    msgFinal.style.opacity = 1;
 
-        conf.style.left = Math.random() * 100 + "vw";
-        conf.style.animationDuration = 2 + Math.random()*2 + "s";
+    // só abre o whatsapp DEPOIS das animações
+    setTimeout(() => {
+        window.location.href = "https://wa.me/5585991207190?text=Eu%20quero%20comer%20pastel%20contigo%20😍🥟💛";
+    }, 2000); // 2.0s
+});
+</script>
 
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 4000);
-      }
-    }
-  </script>
 </body>
 </html>
