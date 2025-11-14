@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vamos se ver hoje?</title>
+  <title>Vamo comer pastel hoje?</title>
   <style>
     body {
       margin: 0;
@@ -13,7 +13,7 @@
       justify-content: center;
       align-items: center;
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #ffd1dc, #ffb6c1, #ffe6f2);
+      background: linear-gradient(135deg, #ffe3b3, #ffd29c, #fff1d6);
       background-size: 300% 300%;
       animation: gradientMove 8s ease infinite;
       overflow: hidden;
@@ -27,8 +27,8 @@
     }
 
     h1 {
-      color: #ff4da6;
-      font-size: 2.5em;
+      color: #d98f34;
+      font-size: 2.6em;
       margin-bottom: 40px;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
       animation: pulse 2s infinite;
@@ -37,6 +37,21 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
+    }
+
+    /* Mascote pastel */
+    .pastelzinho {
+      width: 120px;
+      margin-bottom: 15px;
+      animation: dance 2s infinite;
+    }
+
+    @keyframes dance {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(3deg) scale(1.03); }
+      50% { transform: rotate(0deg) scale(1.06); }
+      75% { transform: rotate(-3deg) scale(1.03); }
+      100% { transform: rotate(0deg) scale(1); }
     }
 
     .buttons {
@@ -57,14 +72,20 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
+    /* Botão SIM – vibração */
     #sim {
-      background-color: #ff66b2;
+      background-color: #ffb84d;
       color: white;
+      animation: vibrar 0.4s infinite alternate;
+    }
+
+    @keyframes vibrar {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.07); }
     }
 
     #sim:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 15px #ffb6c1;
+      box-shadow: 0 0 15px #ffe0a6;
     }
 
     #nao {
@@ -76,15 +97,16 @@
     #resposta {
       margin-top: 40px;
       font-size: 1.8em;
-      color: #ff1493;
+      color: #d97904;
       font-weight: bold;
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
 
+    /* Corações pastel subindo */
     .heart {
       position: absolute;
-      color: #ff80bf;
+      color: #ffcf7c;
       animation: float 6s linear infinite;
       font-size: 24px;
       opacity: 0.7;
@@ -98,23 +120,37 @@
   </style>
 </head>
 <body>
-  <h1>Vamos se ver hoje? 💖</h1>
+
+  <!-- mascote pastel fofinho -->
+  <img class="pastelzinho" src="https://i.imgur.com/7Q0z2tT.png">
+
+  <h1>Vamo comer pastel hoje? 🥟💛</h1>
+
   <div class="buttons">
-    <button id="sim" onclick="responderSim()">Sim 💕</button>
-    <button id="nao" onmouseover="fugir()" onclick="fugir()">Não 💔</button>
+    <button id="sim" onclick="responderSim()">Sim 🥰</button>
+    <button id="nao" onmouseover="fugir()" onclick="fugir()">Não 😭</button>
   </div>
-  <p id="resposta">vai gerar lindinha 💕</p>
+
+  <p id="resposta">Vamos que horas amor?😍🥟</p>
+
+  <!-- música -->
+  <audio id="musica" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa44df01f1.mp3?filename=cute-117870.mp3"></audio>
 
   <script>
     const resposta = document.getElementById("resposta");
     const botaoNao = document.getElementById("nao");
+    const musica = document.getElementById("musica");
 
     function responderSim() {
       resposta.style.opacity = 1;
       criarCoracoes();
 
-      const numero = "+5585991207190"; // Seu número de WhatsApp
-      const mensagem = encodeURIComponent("é claro q eu aceitokkkkk 💕");
+      // toca música
+      musica.currentTime = 0;
+      musica.play();
+
+      const numero = "+5585991207190";
+      const mensagem = encodeURIComponent("vamos que horas?");
       const link = `https://wa.me/${numero}?text=${mensagem}`;
       
       window.open(link, "_blank");
@@ -135,7 +171,7 @@
       for (let i = 0; i < 15; i++) {
         const heart = document.createElement("div");
         heart.classList.add("heart");
-        heart.innerHTML = "💗";
+        heart.innerHTML = "🥟💛";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = 4 + Math.random() * 3 + "s";
         document.body.appendChild(heart);
