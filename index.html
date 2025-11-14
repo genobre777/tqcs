@@ -39,14 +39,13 @@
       50% { transform: scale(1.05); }
     }
 
-    /* Mascote pastel */
+    /* MASCOTE PASTEL */
     .pastelzinho {
       width: 120px;
       margin-bottom: 15px;
       transition: 0.4s ease;
     }
 
-    /* Animação de pulo */
     .pular {
       animation: jump 0.8s ease;
     }
@@ -58,6 +57,7 @@
       100% { transform: translateY(0) scale(1); }
     }
 
+    /* BOTÕES */
     .buttons {
       display: flex;
       gap: 25px;
@@ -72,7 +72,7 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: 0.25s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
@@ -80,11 +80,17 @@
       background-color: #ffb84d;
       color: white;
       animation: vibrar 0.4s infinite alternate;
+      transition: transform 0.25s ease;
     }
 
     @keyframes vibrar {
       0% { transform: scale(1); }
       100% { transform: scale(1.07); }
+    }
+
+    #sim:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 18px #ffe0a6;
     }
 
     #nao {
@@ -102,7 +108,7 @@
       transition: opacity 1.2s ease-in-out;
     }
 
-    /* Corações pastel */
+    /* CORAÇÕES */
     .heart {
       position: absolute;
       color: #ffcf7c;
@@ -117,7 +123,7 @@
       to { transform: translateY(-10vh) scale(1.2); opacity: 0; }
     }
 
-    /* Confetes */
+    /* CONFETES */
     .confete {
       position: fixed;
       font-size: 20px;
@@ -133,7 +139,8 @@
 </head>
 <body>
 
-  <img class="pastelzinho" id="pastelzinho" src="https://i.imgur.com/7Q0z2tT.png">
+  <!-- pastelzinho NOVO (sem erro) -->
+  <img class="pastelzinho" id="pastelzinho" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png">
 
   <h1>Vamo comer pastel hoje? 🥟💛</h1>
 
@@ -142,9 +149,9 @@
     <button id="nao" onmouseover="fugir()" onclick="fugir()">Não 😭</button>
   </div>
 
-  <p id="resposta">AAAAA EU SABIA 😍🥟</p>
+  <p id="resposta">aaaaaaaa to feliz 😍🥟</p>
 
-  <!-- música fofa -->
+  <!-- música -->
   <audio id="musica" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa44df01f1.mp3?filename=cute-117870.mp3"></audio>
 
   <script>
@@ -162,11 +169,9 @@
       criarCoracoes();
       soltarConfete();
 
-      // faz o pastelzinho pular
       pastelzinho.classList.add("pular");
       setTimeout(() => pastelzinho.classList.remove("pular"), 900);
 
-      // ABRE WHATSAPP APÓS EXECUTAR AS AÇÕES
       setTimeout(() => {
         const numero = "+5585991207190";
         const mensagem = encodeURIComponent("vamos que horas?");
@@ -175,7 +180,6 @@
       }, 1500);
     }
 
-    // Botão NÃO fugindo
     function fugir() {
       const largura = window.innerWidth - botaoNao.offsetWidth;
       const altura = window.innerHeight - botaoNao.offsetHeight;
@@ -187,7 +191,6 @@
       botaoNao.style.top = `${novoY}px`;
     }
 
-    // Corações
     function criarCoracoes() {
       for (let i = 0; i < 15; i++) {
         const heart = document.createElement("div");
@@ -200,7 +203,6 @@
       }
     }
 
-    // Confetes
     function soltarConfete() {
       for (let i = 0; i < 25; i++) {
         const conf = document.createElement("div");
